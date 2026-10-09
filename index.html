@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4f46e5">
+<title>RP Studio - рабочая программа</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <a href="#">
+      <img src="image/logo.png" alt="Логотип" class="brand-logo">
+      <div class="brand-text">AI <span>HELPER</span></div>
+    </a>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-secondary mobile-menu" onclick="scrollToTop()">
+      <img src="image/menu.png" alt="Меню">
+    </button>
+  </div>
+</header>
+
+<div class="app">   
+  <!-- Исправлено: добавлен корректный тег сайдбара -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Рабочая область</div>
+    <div class="nav active" data-nav="1">Рабочая программа</div>
+    <div class="nav" data-nav="2">Дисциплина</div>
+    <div class="nav" data-nav="3">Результаты обучения</div>
+    <div class="nav" data-nav="4">Распределение часов</div>
+    <div class="nav" data-nav="5">Тематический план</div>
+    <div class="nav" data-nav="6">Проверка</div>
+    <div class="nav" data-nav="7">Документ</div>
+  </aside>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div>
+        <h1>Создание рабочей программы</h1>
+        <p>Заполните основные сведения, распределите часы и сформируйте готовый документ.</p>
+      </div>
+      <button class="btn btn-secondary" onclick="save(true)">Сохранить сейчас</button>
+    </div>
+
+    <div class="steps">
+      <div class="step active" data-step="1">1. Общая информация</div>
+      <div class="step" data-step="2">2. Дисциплина</div>
+      <div class="step" data-step="3">3. Результаты обучения</div>
+      <div class="step" data-step="4">4. Часы</div>
+      <div class="step" data-step="5">5. Темы</div>
+      <div class="step" data-step="6">6. Проверка</div>
+      <div class="step" data-step="7">7. Документ</div>
+    </div>
+
+    <section id="step1" class="wizard-step">
+      <div class="card">
+        <h2>Общая информация</h2>
+        <div class="grid">
+          <div>
+            <label>Специальность</label>
+            <select id="specialty">
+              <option>06130100 — Программное обеспечение</option>
+              <option>06120100 — Вычислительная техника и информационные сети</option>
+              <option>07151000 — Технология машиностроения</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Квалификация</label>
+            <select id="qualification">
+              <option>4S06130103 — Разработчик программного обеспечения</option>
+              <option>4S06120101 — Техник-программист</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Курс</label>
+            <select id="course">
+              <option>1</option>
+              <option selected>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Группа</label>
+            <input id="group" value="РПО-24-3">
+          </div>
+
+          <div>
+            <label>Учебный год</label>
+            <input id="year" value="2026–2027">
+          </div>
+
+          <div>
+            <label>Семестр</label>
+            <select id="semester">
+              <option>1</option>
+              <option selected>2</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Язык обучения</label>
+            <select id="language">
+              <option>Русский</option>
+              <option>Қазақша</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Преподаватель</label>
+            <input id="teacher" value="Преподаватель">
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="next(2)">Далее</button>
+      </div>
+    </section>
+
+    <section id="step2" class="wizard-step hidden">
+      <div class="card">
+        <h2>Дисциплина / профессиональный модуль</h2>
+        <div class="grid">
+          <div>
+            <label>Тип программы</label>
+            <select id="programType">
+              <option>Профессиональный модуль</option>
+              <option>Дисциплина</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Код</label>
+            <input id="code" value="ПМ 10">
+          </div>
+
+          <div>
+            <label>Название</label>
+            <input id="programName" value="Разработка серверных приложений">
+          </div>
+
+          <div>
+            <label>Общее количество часов</label>
+            <input id="totalHours" type="number" value="72" min="1" oninput="recalculate()">
+          </div>
+
+          <div>
+            <label>Количество кредитов</label>
+            <input id="credits" type="number" value="3" min="0">
+          </div>
+
+          <div>
+            <label>Форма контроля</label>
+            <select id="control">
+              <option>Экзамен</option>
+              <option>Зачёт</option>
+              <option>Дифференцированный зачёт</option>
+              <option>Практическая работа</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="next(1)">Назад</button>
+        <!-- Исправлено: </tton> заменено на </button> -->
+        <button class="btn btn-primary" onclick="next(3)">Далее</button>
+      </div>
+    </section>
+
+    <section id="step3" class="wizard-step hidden">
+      <div class="card">
+        <h2>Результаты обучения</h2>
+        <div id="outcomes"></div>
+        <button class="btn btn-secondary" onclick="addOutcome()">Добавить результат</button>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="next(2)">Назад</button>
+        <!-- Исправлено: </tton> заменено на </button> -->
+        <button class="btn btn-primary" onclick="next(4)">Далее</button>
+      </div>
+    </section>
+
+    <section id="step4" class="wizard-step hidden">
+      <div class="card">
+        <h2>Распределение часов</h2>
+        <div class="grid-3">
+          <div>
+            <label>Теория</label>
+            <input id="theory" type="number" value="24" min="0" oninput="recalculate()">
+          </div>
+
+          <div>
+            <label>Практика</label>
+            <input id="practice" type="number" value="32" min="0" oninput="recalculate()">
+          </div>
+
+          <div>
+            <label>Лабораторные</label>
+            <input id="labs" type="number" value="8" min="0" oninput="recalculate()">
+          </div>
+        </div>
+
+        <div style="margin-top:15px">
+          <label>Самостоятельная работа</label>
+          <input id="selfWork" type="number" value="8" min="0" oninput="recalculate()">
+        </div>
+
+        <div class="hours-box">
+          <div class="hour-card">
+            <strong id="allocated">72</strong>
+            <div>Распределено</div>
+          </div>
+
+          <div class="hour-card">
+            <strong id="required">72</strong>
+            <div>Всего</div>
+          </div>
+
+          <div class="hour-card">
+            <strong id="remaining">0</strong>
+            <div>Отклонение</div>
+          </div>
+
+          <div class="hour-card">
+            <strong id="hourStatus" class="ok">OK</strong>
+            <div>Статус</div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px">
+          <div class="progress">
+            <div id="progress" class="progress-bar" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="next(3)">Назад</button>
+        <!-- Исправлено: </tton> заменено на </button> -->
+        <button class="btn btn-primary" onclick="next(5)">Далее</button>
+      </div>
+    </section>
+
+    <section id="step5" class="wizard-step hidden">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <h2 style="margin-bottom:4px">Тематический план</h2>
+            <div style="font-size:13px;color:var(--muted)">Перетаскивайте темы, редактируйте часы и содержание занятий.</div>
+          </div>
+          <div>
+            <button class="btn btn-auto" onclick="generateAI()">Автосформировать темы</button>
+            <button class="btn btn-secondary" onclick="addTopic()">Тема</button>
+          </div>
+        </div>
+
+        <div class="notice" style="margin-top:16px">
+          Автосформирование работает локально по шаблону и не требует подключения к интернету. 
+          Получившийся план можно полностью изменить вручную.
+        </div>
+
+        <div class="grid" style="margin-bottom:18px">
+          <div>
+            <label>Продолжительность одной темы, часов</label>
+            <input id="topicDuration" type="number" value="2" min="1" oninput="recalculateTopics()">
+          </div>
+          <div>
+            <label>Количество занятий</label>
+            <input id="topicCount" type="number" value="36" min="1" readonly>
+          </div>
+        </div>
+
+        <div id="topics"></div>
+        <div id="topicTotal"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="next(4)">Назад</button>
+        <button class="btn btn-primary" onclick="next(6)">Проверить</button>
+      </div>
+    </section>
+
+    <section id="step6" class="wizard-step hidden">
+      <div class="card">
+        <h2>Проверка рабочей программы</h2>
+        <div id="validation"></div>
+      </div>
+
+      <div class="card">
+        <h2>Цель программы</h2>
+        <textarea id="goal" placeholder="Сформулируйте цель программы..."></textarea>
+        <button class="btn btn-auto" onclick="generateGoal()" style="margin-top:10px">Сформировать цель</button>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="next(5)">Назад</button>
+        <button class="btn btn-primary" onclick="goPreview()">Предпросмотр</button>
+      </div>
+    </section>
+
+    <section id="step7" class="wizard-step hidden">
+      <div class="card">
+        <div class="actions" style="margin-top:0;margin-bottom:15px">
+          <button class="btn btn-success" onclick="downloadWord()">Word</button>
+          <button class="btn btn-primary" onclick="printDocument()">PDF</button>
+          <button class="btn btn-secondary" onclick="save(true)">Сохранить</button>
+        </div>
+        <div id="preview" class="preview"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="next(6)">Назад</button>
+        <button class="btn btn-success" onclick="submitProgram()">Отправить на согласование</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow">Редактор занятия</div>
+        <h2>Содержание занятия</h2>
+      </div>
+      <button class="btn btn-secondary" onclick="closeModal()">Закрыть</button>
+    </div>
+
+    <label>Цель</label>
+    <textarea id="lessonGoal"></textarea>
+    <label style="margin-top:12px">Содержание</label>
+    <textarea id="lessonContent"></textarea>
+    <label style="margin-top:12px">Практическое задание</label>
+    <textarea id="lessonPractice"></textarea>
+    <label style="margin-top:12px">Ожидаемый результат</label>
+    <textarea id="lessonResult"></textarea>
+
+    <div class="actions">
+      <button class="btn btn-auto" onclick="generateLesson()">Заполнить по шаблону</button>
+      <button class="btn btn-primary" onclick="saveLesson()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
